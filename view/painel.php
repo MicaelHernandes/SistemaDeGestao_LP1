@@ -11,7 +11,7 @@ $_SESSION['id_usuario'] = $colab['id'];
 ' 9', 'ADMIN SAC',      '000.000.000-04', 'GERENTE SAC', 'teste'
 ' 8', 'ADMIN VENDAS',   '000.000.000-02', 'GERENTE VENDAS', 'teste'
 '10', 'RH',             '000.000.000-05', 'RH', 'teste'
-' 7', 'SAC',            '000.000.000-03', 'SAC', 'teste'
+' 7', 'SAC',            '000.000.000-03', 'SAC', 'teste'  
 ' 2', 'VENDAS',         '000.000.000-01', 'VENDEDOR', 'teste'
 
 

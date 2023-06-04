@@ -95,4 +95,30 @@ class UsuarioController
         $stmt->bindParam(':valor', $valorVenda);
         $stmt->execute();
     }
+    public function obterVendedoresComTotalVendas()
+    {
+        $consulta = "SELECT c.id, c.nome, SUM(v.valor) AS total_vendido, COUNT(v.id) AS quantidade_vendas 
+        FROM colaboradores c
+        LEFT JOIN vendas v ON c.id = v.vendedor_id
+        WHERE c.cargo = 'VENDEDOR'
+        GROUP BY c.id, c.nome";
+        $stmt = $this->conexao->prepare($consulta);
+        $stmt->execute();
+        $vendedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $vendedores;
+    }
+    public function obterVendasComNomeVendedor()
+    {
+        $consulta = "SELECT v.*, c.nome AS nome_vendedor, cl.nome AS nome_cliente
+                     FROM vendas v
+                     JOIN colaboradores c ON v.vendedor_id = c.id
+                     JOIN clientes cl ON v.usuario_id = cl.id";
+
+        $stmt = $this->conexao->prepare($consulta);
+        $stmt->execute();
+        $vendas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $vendas;
+    }
 }
