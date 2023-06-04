@@ -1,6 +1,7 @@
 <?php
 require_once('../controller/verifica_login.php');
 
+
 function criarConexao()
 {
     $host = "172.17.0.2";

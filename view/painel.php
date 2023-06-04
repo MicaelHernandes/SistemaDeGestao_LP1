@@ -31,9 +31,9 @@ $_SESSION['id_usuario'] = $colab['id'];
 <body>
   <nav class="navbar navbar-light bg-light d-flex justify-content-center">
     <a class="navbar-brand" href="#">
-      <img src="https://cdn.icon-icons.com/icons2/3961/PNG/512/funds_emergency_offering_alms_donation_money_online_icon_252445.png" width="30" height="30" class="d-inline-block align-top" alt="">
       SYSBIN
     </a>
+    <a class="btn btn-primary" href="../controller/logout.php">Sair</a>
   </nav>
   <?php
   switch ($_SESSION['cargo_usuario']) {
@@ -44,8 +44,8 @@ $_SESSION['id_usuario'] = $colab['id'];
     case 'VENDEDOR':
       require_once('./views/vendedor.php');
       break;
-    case 'DEV':
-      require_once('./views/dev.php');
+    case 'GERENTE VENDAS':
+      require_once('./views/gerencia_vendedor.php');
       break;
     case 'DEV':
       require_once('./views/dev.php');
@@ -65,7 +65,7 @@ $_SESSION['id_usuario'] = $colab['id'];
       break;
   }
   ?>
-  <div class="footer fixed-bottom text-center">
+  <div class="footer fixed-bottom text-center mt-4">
     <p>&copy; 2023 - 2028 Micael Hernandes. Todos os direitos reservados.</p>
   </div>
 </body>

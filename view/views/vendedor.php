@@ -1,4 +1,10 @@
-<?php require_once('../controller/verifica_login.php'); ?>
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+include_once('../controller/verifica_login.php');
+include_once('../controller/pega_vendas.php');
+?>
 
 <body>
     <div class="container">
@@ -12,79 +18,38 @@
                         <div class="col mb-5">
                             <h3>Suas ultimas vendas:</h3>
                         </div>
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <table class="table">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="col">
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#Id</th>
+                                        <th scope="col">Valor venda</th>
+                                        <th scope="col">Nome Cliente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if($vendas){foreach ($vendas as $vend){ ?>
+                                    <tr>
+                                        <th scope="row"><?= $vend['id'] ?></th>
+                                        <td><?= $vend['valor'] ?></td>
+                                        <td><?= $vend['nome_cliente'] ?></td>
+                                    </tr>   
+                                    <?php }}?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col">
                         <div class="col">
                             <h3>cadastrar nova venda:</h3>
-                            <form>
+                            <form method="POST" action="../controller/cadastra_vendas.php">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">CPF Cliente</label>
                                     <input type="text" class="form-control" id="cpf-input" name="cpf_cliente" placeholder="000.000.000-00">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Nome Cliente</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="nome_cliente" placeholder="Nome cliente">
+                                    <input type="text" class="form-control" id="nome-input" name="nome_cliente" placeholder="Nome cliente">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Valor venda:</label>
@@ -105,6 +70,22 @@
     <script>
         $(document).ready(function() {
             $('#cpf-input').mask('000.000.000-00');
+        });
+
+        $(document).ready(function() {
+            $('#cpf-input').on('keyup', function() {
+                var cpf = $(this).val();
+                $.ajax({
+                    url: '../controller/obter_nome_cliente.php',
+                    method: 'POST',
+                    data: {
+                        cpf: cpf
+                    },
+                    success: function(response) {
+                        $('#nome-input').val(response);
+                    }
+                });
+            });
         });
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js" integrity="sha384-pzjwP/J5lg+gFcA8k81i5+1M65US+7w9yX5e5Qr02xhcu6JbrjSpnMToUpwMbbd" crossorigin="anonymous"></script>
