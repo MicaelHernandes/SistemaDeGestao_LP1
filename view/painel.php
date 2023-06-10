@@ -47,17 +47,11 @@ $_SESSION['id_usuario'] = $colab['id'];
     case 'GERENTE VENDAS':
       require_once('./views/gerencia_vendedor.php');
       break;
-    case 'DEV':
+    case 'GERENTE SAC':
       require_once('./views/dev.php');
       break;
-    case 'DEV':
-      require_once('./views/dev.php');
-      break;
-    case 'DEV':
-      require_once('./views/dev.php');
-      break;
-    case 'DEV':
-      require_once('./views/dev.php');
+    case 'GERENTE RH':
+      require_once('./views/gerencia_rh.php');
       break;
     default:
       $_SESSION['nao-autorizado'] = true;

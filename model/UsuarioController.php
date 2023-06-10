@@ -121,4 +121,13 @@ class UsuarioController
 
         return $vendas;
     }
+    public function obterTodosFuncionarios()
+    {
+        $consulta = "SELECT * FROM colaboradores";
+        $stmt = $this->conexao->prepare($consulta);
+        $stmt->execute();
+        $colaboradores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $colaboradores;
+    }
 }
